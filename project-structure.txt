@@ -1,0 +1,78 @@
+skinwise-ai-checkup
+├── README.md
+├── bun.lockb
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── project-structure.txt
+├── public
+│   ├── favicon.ico
+│   ├── placeholder.svg
+│   └── robots.txt
+├── requirements.txt
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── App.tsx
+│   ├── components
+│   │   ├── AlertDialog.tsx
+│   │   ├── AnimationObserver.jsx
+│   │   ├── AnimationObserver.tsx
+│   │   ├── CheckSkinBanner.tsx
+│   │   ├── Footer.jsx
+│   │   ├── Footer.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── HowToUse.jsx
+│   │   ├── Map.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── ResultCard.jsx
+│   │   ├── ResultCard.tsx
+│   │   ├── SkinCareBanner.jsx
+│   │   ├── SkinCareTipsBanner.jsx
+│   │   ├── TestForm.jsx
+│   │   ├── TestForm.tsx
+│   │   ├── WhyUseAI.tsx
+│   │   └── ui
+│   ├── context
+│   │   └── AuthContext.jsx
+│   ├── hooks
+│   │   ├── use-mobile.jsx
+│   │   ├── use-mobile.tsx
+│   │   └── use-toast.ts
+│   ├── index.css
+│   ├── integrations
+│   │   └── supabase
+│   ├── lib
+│   │   └── utils.ts
+│   ├── main.jsx
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── ContactPage.tsx
+│   │   ├── HomePage.jsx
+│   │   ├── HomePage.tsx
+│   │   ├── HospitalsPage.tsx
+│   │   ├── Index.jsx
+│   │   ├── LoginPage.jsx
+│   │   ├── LoginPage.tsx
+│   │   ├── NotFound.jsx
+│   │   ├── PrecautionsPage.jsx
+│   │   ├── ProfilePage.jsx
+│   │   ├── RegisterPage.tsx
+│   │   ├── SkinCarePage.jsx
+│   │   ├── SkinCarePage.tsx
+│   │   ├── TestPage.jsx
+│   │   └── TestPage.tsx
+│   ├── types
+│   │   └── index.js
+│   └── vite-env.d.ts
+├── supabase
+│   └── config.toml
+├── tailwind.config.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
