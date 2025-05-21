@@ -7,7 +7,8 @@ import "leaflet/dist/leaflet.css";
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-// Fix Leaflet icons
+
+// Fix Leaflet icons for Vite + React
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
@@ -15,6 +16,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
+// Component to center map on user location
 const RecenterMap = ({ location }) => {
   const map = useMap();
   useEffect(() => {
@@ -28,8 +30,14 @@ const RecenterMap = ({ location }) => {
 const Map = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [hospitals, setHospitals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return fallbackToDefault();
+    }
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = {
@@ -41,12 +49,21 @@ const Map = () => {
       },
       (error) => {
         console.error("Geolocation error:", error);
-        const fallback = { lat: 40.7128, lng: -74.006 }; // NYC
-        setUserLocation(fallback);
-        fetchHospitals(fallback.lat, fallback.lng);
+        fallbackToDefault();
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
       }
     );
   }, []);
+
+  const fallbackToDefault = () => {
+    const fallback = { lat: 28.6139, lng: 77.2090 }; // New Delhi as fallback
+    setUserLocation(fallback);
+    fetchHospitals(fallback.lat, fallback.lng);
+  };
 
   const fetchHospitals = async (lat, lng) => {
     const query = `
@@ -68,7 +85,7 @@ const Map = () => {
       const elements = response.data.elements;
       const parsedHospitals = elements.map((el) => ({
         id: el.id,
-        name: el.tags?.name || "Unnamed",
+        name: el.tags?.name || "Unnamed Hospital/Clinic",
         lat: el.lat || el.center?.lat,
         lng: el.lon || el.center?.lon,
         type: el.tags?.amenity,
@@ -78,15 +95,19 @@ const Map = () => {
       setHospitals(parsedHospitals);
     } catch (err) {
       console.error("Failed to fetch hospitals:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (!userLocation) return <div className="h-[400px] bg-gray-200">Loading map...</div>;
+  if (!userLocation || loading) {
+    return <div className="h-[400px] flex items-center justify-center bg-gray-100 text-gray-600 text-sm">Loading map and hospitals...</div>;
+  }
 
   return (
     <div>
       <div className="h-[500px] mb-6">
-        <MapContainer center={userLocation} zoom={13} scrollWheelZoom={true} className="h-full w-full z-0">
+        <MapContainer center={userLocation} zoom={13} scrollWheelZoom className="h-full w-full z-0">
           <RecenterMap location={userLocation} />
           <TileLayer
             attribution='&copy; OpenStreetMap contributors'
@@ -108,27 +129,62 @@ const Map = () => {
       </div>
 
       {/* Hospital Cards */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {hospitals.map((hospital) => (
-          <div key={hospital.id} className="p-4 rounded-2xl shadow bg-white">
-            <h3 className="text-xl font-semibold">{hospital.name}</h3>
-            <p className="text-sm text-gray-500 mb-2">{hospital.address || "No address available"}</p>
+      <div className="p-6">
+  <h3 className="text-lg font-semibold mb-4">Nearby Dermatology Hospitals</h3>
+
+  {hospitals.length > 0 ? (
+    <div className="space-y-4">
+      {hospitals.map((hospital) => (
+        <div
+          key={hospital.id}
+          className="border border-gray-200 p-4 rounded-lg hover:border-skinwise-accent transition-colors"
+        >
+          <div className="flex justify-between">
+            <h4 className="font-medium">{hospital.name}</h4>
+            <div className="text-sm bg-green-100 text-green-800 px-2 py-0.5 rounded">
+              {hospital.distance ? `${hospital.distance} km` : "N/A"}
+            </div>
+          </div>
+
+          <p className="text-gray-600 text-sm mt-1">{hospital.address || "No address available"}</p>
+
+          <div className="flex flex-wrap gap-2 mt-2">
+            {(hospital.specialties || ["General", "Dermatology"]).map((specialty, idx) => (
+              <span
+                key={idx}
+                className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded"
+              >
+                {specialty}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-3">
             <a
               href={`https://www.google.com/maps/dir/?api=1&destination=${hospital.lat},${hospital.lng}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-2 bg-blue-600 text-white px-4 py-1.5 rounded-xl text-sm hover:bg-blue-700 transition"
+              className="text-skinwise-accent hover:underline text-sm"
             >
               Get Directions
             </a>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="text-center py-8">
+      <p>Loading nearby hospitals...</p>
+    </div>
+  )}
+</div>
+
     </div>
   );
 };
 
 export default Map;
+
 
 
 
