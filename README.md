@@ -138,9 +138,6 @@ skinwise/
 
 <img width="835" src="https://github.com/user-attachments/assets/2c00ca04-f155-434d-bf5a-746f992ba815" />  
 <img width="821" src="https://github.com/user-attachments/assets/e217c9de-0835-41fc-a94f-96b11522b44e" />  
-<img width="859" src="https://github.com/user-attachments/assets/dda1e657-51fc-428c-aab4-80bf13bbb66d" />  
-<img width="870" src="https://github.com/user-attachments/assets/7fbdfa0c-ca97-45d2-a779-580c5e2e1615" />  
-<img width="871" src="https://github.com/user-attachments/assets/f3259ccc-43d6-46d4-b9c0-e0128ce8e9f2" />  
 
 ---
 
