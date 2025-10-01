@@ -58,7 +58,6 @@ This project combines:
 
 * GitHub (Version Control)
 * Kaggle/DermNet Dataset (Skin disease images)
-* Docker (optional, for deployment)
 
 ---
 
