@@ -5,7 +5,6 @@
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-DeepLearning-FF6F00?logo=tensorflow)
 ![MobileNetV3](https://img.shields.io/badge/Model-MobileNetV3-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Status](https://img.shields.io/badge/Status-Final%20Year%20Project-red)
 
 ---
