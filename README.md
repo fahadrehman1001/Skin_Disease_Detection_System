@@ -183,6 +183,3 @@ It demonstrates the integration of **Artificial Intelligence, Web Development, a
 **Fahad Rehman**
 
 ---
-
-✅ Now this README is fully structured with **badges, clean sections, real screenshots, and academic info**.
-Would you like me to also add an **API Usage Section** (with request & response JSON for `/predict`) so developers testing your repo know exactly how to use the model?
